@@ -16,7 +16,8 @@ let config = {
   },
 
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    modulesDirectories: ['node_modules']
   },
 
   module: {

@@ -1,5 +1,6 @@
 // ライブラリの読み込み
 const gulp = require('gulp');
+const eslint = require('gulp-eslint');
 const plumber = require('gulp-plumber');
 const runSequence = require('run-sequence');
 const webpack = require('webpack-stream');
@@ -14,6 +15,14 @@ gulp.task('webpack', () => {
   .pipe(gulp.dest('./dist'));
 });
 
+// eslint実行
+gulp.task('lint', () => {
+  gulp.src(['./src/*'])
+  .pipe(eslint({useEslintrc: true}))
+  .pipe(eslint.format())
+  .pipe(eslint.failAfterError());
+})
+
 // デフォルトタスク
 gulp.task('default', () => {
   // if (env === 'production') {
@@ -21,5 +30,5 @@ gulp.task('default', () => {
   // } else {
   //   runSequence('webpack');
   // }
-  runSequence('webpack');
+  runSequence('lint', 'webpack');
 });
